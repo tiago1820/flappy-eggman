@@ -4,8 +4,6 @@ function novoElemento(tagName, className) {
     return elem;
 }
 
-// document.querySelector('.flappy').appendChild(novoElemento('div', 'prueba'));
-
 function Barreira(reversa = false) {
     this.elemento = novoElemento('div', 'barreira');
 
@@ -17,10 +15,6 @@ function Barreira(reversa = false) {
     this.setAltura = altura => corpo.style.height = `${altura}px`;
 
 }
-
-// const b = new Barreira(true);
-// b.setAltura(300);
-// document.querySelector('.flappy').appendChild(b.elemento);
 
 function ParDeBarreiras(altura, abertura, x) {
     this.elemento = novoElemento('div', 'par-de-barreiras');
@@ -81,8 +75,15 @@ function Passaro(alturaJogo) {
     this.getY = () => parseInt(this.elemento.style.bottom.split('px')[0]);
     this.setY = y => this.elemento.style.bottom = `${y}px`;
 
-    window.onkeydown = e => voando = true;
-    window.onkeyup = e => voando = false;
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        this.elemento.ontouchstart = () => voando = true;
+        this.elemento.ontouchend = () => voando = false;
+    } else {
+        window.onkeydown = e => voando = true;
+        window.onkeyup = e => voando = false;
+    }
 
     this.animar = () => {
         const novoY = this.getY() + (voando ? 5 : -1);
@@ -117,7 +118,7 @@ function flappyBird() {
     music.setAttribute('autoplay', '');
     music.setAttribute('loop', '');
     areaDoJogo.appendChild(music);
-    
+
     this.start = () => {
         const temporizador = setInterval(() => {
             barreiras.animar();
@@ -125,6 +126,5 @@ function flappyBird() {
         }, 20);
     };
 };
-
 
 new flappyBird().start();
