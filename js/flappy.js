@@ -78,8 +78,9 @@ function Passaro(alturaJogo) {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     if (isMobile) {
-        this.elemento.ontouchstart = () => voando = true;
-        this.elemento.ontouchend = () => voando = false;
+        const container =  document.getElementsByClassName('.conteudo');
+        container.ontouchstart = () => voando = true;
+        container.ontouchend = () => voando = false;
     } else {
         window.onkeydown = e => voando = true;
         window.onkeyup = e => voando = false;
