@@ -152,7 +152,7 @@ function flappyBird() {
     barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento));
 
     const music = novoElemento('audio', '');
-    music.setAttribute('src', 'sound/marbleGardenZone2.mp3');
+    music.setAttribute('src', 'sound/marbleGardenZone2.wav');
     music.setAttribute('autoplay', '');
     music.setAttribute('loop', '');
     areaDoJogo.appendChild(music);
@@ -161,6 +161,10 @@ function flappyBird() {
         const temporizador = setInterval(() => {
             barreiras.animar();
             passaro.animar();
+
+            if(music.paused && music.readyState === 4){
+                music.play();
+            }
 
             if (colidiu(passaro, barreiras)) {
                 clearInterval(temporizador);
