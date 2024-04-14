@@ -16,9 +16,18 @@
     /* 1200 */
     /* background-color: deepskyblue; */
     overflow: hidden;
-    background-image: url(../images/Angel-Island-Sonic.png);
+    background-image: url(../images/angel-island.png);
     background-repeat: no-repeat;
     background-size: cover;
+    animation: animateBackground 120s linear infinite;
+}
+@keyframes animateBackground {
+    0%{
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: -2000px;
+    }
 }
 
 .par-de-barreiras {
